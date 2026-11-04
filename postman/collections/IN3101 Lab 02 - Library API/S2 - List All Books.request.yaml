@@ -1,0 +1,9 @@
+$kind: http-request
+description: Capture at least three books, including your index number in one title.
+url: "{{baseUrl}}/api/books"
+method: GET
+scripts:
+  - type: afterResponse
+    code: pm.test("Expected HTTP 200", function () { pm.response.to.have.status(200); });
+    language: text/javascript
+order: 4000

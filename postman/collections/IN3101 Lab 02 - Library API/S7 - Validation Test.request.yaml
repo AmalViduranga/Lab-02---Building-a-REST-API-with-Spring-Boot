@@ -1,0 +1,20 @@
+$kind: http-request
+description: The empty title must produce 400 and must not save a book.
+url: "{{baseUrl}}/api/books"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "",
+      "author": "Robert C. Martin",
+      "isbn": "9780132350884",
+      "price": 4500.0
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test("Expected HTTP 400", function () { pm.response.to.have.status(400); });
+    language: text/javascript
+order: 9000

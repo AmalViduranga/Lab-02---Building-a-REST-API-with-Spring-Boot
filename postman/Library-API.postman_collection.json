@@ -1,0 +1,285 @@
+{
+  "info": {
+    "name": "IN3101 Lab 02 - Library API",
+    "description": "Send requests individually in order. Replace the index placeholder, create all three books before S2, and manually set bookId/deletedId. No script changes variables. Do not run the whole collection without reviewing the DELETE request. S8 is captured in Swagger UI.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "bookId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "deletedId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "S1 - Create Book",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books",
+        "description": "Replace YOUR_INDEX_NUMBER with your actual index number before sending. Record the returned id and manually set bookId in collection variables. Capture S1.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"YOUR_INDEX_NUMBER - Clean Code\",\n  \"author\": \"Robert C. Martin\",\n  \"isbn\": \"9780132350884\",\n  \"price\": 4500.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected HTTP 201\", function () { pm.response.to.have.status(201); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Extra - Create Effective Java",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books",
+        "description": "Send once before S2 to create the second record.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Effective Java\",\n  \"author\": \"Joshua Bloch\",\n  \"isbn\": \"9780134685991\",\n  \"price\": 6200.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected HTTP 201\", function () { pm.response.to.have.status(201); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Extra - Create The Pragmatic Programmer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books",
+        "description": "Send once before S2 to create the third record. Record this id and manually set deletedId to it; keep the index-number book.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"The Pragmatic Programmer\",\n  \"author\": \"David Thomas and Andrew Hunt\",\n  \"isbn\": \"9780135957059\",\n  \"price\": 5800.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected HTTP 201\", function () { pm.response.to.have.status(201); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "S2 - List All Books",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/books",
+        "description": "Capture at least three books, including your index number in one title."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected HTTP 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "S3 - Get Book By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/books/{{bookId}}",
+        "description": "Set bookId manually to the id returned by S1."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected HTTP 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "S4 - Update Book",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books/{{bookId}}",
+        "description": "Replace YOUR_INDEX_NUMBER before sending. PUT replaces all editable fields.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"YOUR_INDEX_NUMBER - Clean Code (Updated)\",\n  \"author\": \"Robert C. Martin\",\n  \"isbn\": \"9780132350884\",\n  \"price\": 4700.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected HTTP 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "S5 - Delete Book",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/books/{{deletedId}}",
+        "description": "Destructive: manually set deletedId to the third example book id, confirm it, then send only when ready for S5. Capture S2 first."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected HTTP 204\", function () { pm.response.to.have.status(204); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "S6 - Get Deleted Book",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/books/{{deletedId}}",
+        "description": "Use exactly the same deletedId as S5."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected HTTP 404\", function () { pm.response.to.have.status(404); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "S7 - Validation Test",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books",
+        "description": "The empty title must produce 400 and must not save a book.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"\",\n  \"author\": \"Robert C. Martin\",\n  \"isbn\": \"9780132350884\",\n  \"price\": 4500.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected HTTP 400\", function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

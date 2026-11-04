@@ -1,0 +1,6 @@
+$kind: collection
+description: Send requests individually in order. Replace the index placeholder, create all three books before S2, and manually set bookId/deletedId. No script changes variables. Do not run the whole collection without reviewing the DELETE request. S8 is captured in Swagger UI.
+variables:
+  baseUrl: http://localhost:8080
+  bookId: "1"
+  deletedId: "1"

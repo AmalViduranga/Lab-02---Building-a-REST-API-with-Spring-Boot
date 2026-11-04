@@ -1,0 +1,20 @@
+$kind: http-request
+description: Replace YOUR_INDEX_NUMBER with your actual index number before sending. Record the returned id and manually set bookId in collection variables. Capture S1.
+url: "{{baseUrl}}/api/books"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "YOUR_INDEX_NUMBER - Clean Code",
+      "author": "Robert C. Martin",
+      "isbn": "9780132350884",
+      "price": 4500.0
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test("Expected HTTP 201", function () { pm.response.to.have.status(201); });
+    language: text/javascript
+order: 1000

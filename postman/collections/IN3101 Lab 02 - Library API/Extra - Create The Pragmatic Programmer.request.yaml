@@ -1,0 +1,20 @@
+$kind: http-request
+description: Send once before S2 to create the third record. Record this id and manually set deletedId to it; keep the index-number book.
+url: "{{baseUrl}}/api/books"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "The Pragmatic Programmer",
+      "author": "David Thomas and Andrew Hunt",
+      "isbn": "9780135957059",
+      "price": 5800.0
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test("Expected HTTP 201", function () { pm.response.to.have.status(201); });
+    language: text/javascript
+order: 3000

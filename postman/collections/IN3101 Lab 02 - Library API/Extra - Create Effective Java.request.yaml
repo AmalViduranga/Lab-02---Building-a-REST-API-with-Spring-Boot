@@ -1,0 +1,20 @@
+$kind: http-request
+description: Send once before S2 to create the second record.
+url: "{{baseUrl}}/api/books"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Effective Java",
+      "author": "Joshua Bloch",
+      "isbn": "9780134685991",
+      "price": 6200.0
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test("Expected HTTP 201", function () { pm.response.to.have.status(201); });
+    language: text/javascript
+order: 2000

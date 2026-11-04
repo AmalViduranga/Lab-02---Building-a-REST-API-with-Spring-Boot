@@ -1,0 +1,9 @@
+$kind: http-request
+description: "Destructive: manually set deletedId to the third example book id, confirm it, then send only when ready for S5. Capture S2 first."
+url: "{{baseUrl}}/api/books/{{deletedId}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: pm.test("Expected HTTP 204", function () { pm.response.to.have.status(204); });
+    language: text/javascript
+order: 7000
